@@ -1,0 +1,6 @@
+[submodule "Assets/unityMQTT"]
+	path = Assets/unityMQTT
+	url = git@github.com:isd-iin-els/unityMQTT.git
+[submodule "unity3d-game-executables"]
+	path = unity3d-game-executables
+	url = git@github.com:isd-iin-els/unity3d-game-executables.git
