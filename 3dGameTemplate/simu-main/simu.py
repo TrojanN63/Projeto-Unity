@@ -170,7 +170,7 @@ functions[22] = imuSendStop
 functions[3] = sensor_start
 
 client.connect("127.0.0.1", 1883, 15)
-imuloop([5,5])
+imuloop([20,10])
 # t1 = threading.Thread(target=client.loop_forever)
 # t1.start()
 # counter = 0

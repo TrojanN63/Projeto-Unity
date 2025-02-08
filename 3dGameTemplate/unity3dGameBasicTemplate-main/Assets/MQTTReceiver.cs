@@ -15,10 +15,14 @@ public class MQTTReceiver : MonoBehaviour
     private float gx, gy, gz;
     private float mx, my, mz;
     
+    private float vx,vy,vz;
+    
+    public Rigidbody rb;
+    
     // Start is called before the first frame update
     void Start()
     {
-    	Debug.Log("teste");
+    	rb = GetComponent<Rigidbody>();
         client = new MqttClient(brokerAddress);
         client.MqttMsgPublishReceived += OnMessageReceived;
         client.Connect(Guid.NewGuid().ToString()); 
@@ -41,21 +45,26 @@ public class MQTTReceiver : MonoBehaviour
     	string[] values = message.Split(',');
     	if (values.Length >= 9)
     	{
-    		ax = float.Parse(values[0]);
-    		ay = float.Parse(values[1]);
-    		az = float.Parse(values[2]);
-    		gx = float.Parse(values[3]);
-    		gy = float.Parse(values[4]);
-    		gz = float.Parse(values[5]);
-    		mx = float.Parse(values[6]);
-    		my = float.Parse(values[7]);
-    		mz = float.Parse(values[8]);
+    		ax = float.Parse(values[0], System.Globalization.CultureInfo.InvariantCulture);
+    		ay = float.Parse(values[1], System.Globalization.CultureInfo.InvariantCulture);
+    		az = float.Parse(values[2], System.Globalization.CultureInfo.InvariantCulture);
+    		gx = float.Parse(values[3], System.Globalization.CultureInfo.InvariantCulture);
+    		gy = float.Parse(values[4], System.Globalization.CultureInfo.InvariantCulture);
+    		gz = float.Parse(values[5], System.Globalization.CultureInfo.InvariantCulture);
+    		mx = float.Parse(values[6], System.Globalization.CultureInfo.InvariantCulture);
+    		my = float.Parse(values[7], System.Globalization.CultureInfo.InvariantCulture);
+    		mz = float.Parse(values[8], System.Globalization.CultureInfo.InvariantCulture);
+    		
+    		vx += ax;
+    		vy += ay;
+    		vz += az;
 	}
 }
     // Update is called once per frame
     void Update()
     {
         transform.Rotate(gx,gy,gz);
+        rb.velocity = new Vector3(vx,vy,vz);
     }
     
 }
